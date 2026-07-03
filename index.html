@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stromkosten-Rechner</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,16 +30,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 16px;
+    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
   }
   .card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 32px;
+    padding: 24px;
     width: 100%;
     max-width: 480px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
   }
   h1 {
     font-size: 22px;
@@ -207,7 +210,6 @@ function berechne() {
   const kostenProStunde = leistungKw * preisEuroProKwh;
   const kostenProTag = kostenProStunde * 24;
 
-  // Grundpreis pro Tag ermitteln, dann auf den Nutzungszeitraum umrechnen
   const grundpreisProTag = grundpreisEinheit === 'jahr' ? grundpreisWert / 365 : grundpreisWert / 30;
   const grundpreisAnteil = grundpreisProTag * (stunden / 24);
 
