@@ -13,12 +13,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install dependencies
+        run: npm install html-minifier uglify-js csso
       - name: Create dist directory
         run: mkdir -p dist
       - name: Minify HTML
         run: npx html-minifier index.html --output dist/index.html
       - name: Minify CSS
-        run: npx csso styles.css --output dist/styles.min.css
+        run: node -e "const fs=require('fs'),csso=require('csso');fs.writeFileSync('dist/styles.min.css',csso.minify(fs.readFileSync('styles.css','utf8')).css)"
       - name: Minify JS
         run: npx uglify-js script.js -c -m --output dist/script.min.js
       - name: Copy static files
