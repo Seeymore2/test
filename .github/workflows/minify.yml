@@ -9,14 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install minification tools
+        run: npm install -g html-minifier uglify-js clean-css
       - name: Create dist directory
         run: mkdir -p dist
       - name: Minify HTML
-        run: npx html-minifier index.html --output dist/index.html
+        run: html-minifier index.html --output dist/index.html
       - name: Minify CSS
-        run: npx clean-css -o dist/styles.min.css styles.css
+        run: cleancss -o dist/styles.min.css styles.css
       - name: Minify JS
-        run: npx uglifyjs script.js -c -m --output dist/script.min.js
+        run: uglifyjs script.js -c -m --output dist/script.min.js
       - name: Copy static files
         run: |
           cp LICENSE dist/
