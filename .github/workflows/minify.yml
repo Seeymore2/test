@@ -9,10 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Minify files
+      - name: Create dist directory
+        run: mkdir -p dist
+      - name: Minify HTML
+        run: npx html-minifier index.html --output dist/index.html
+      - name: Minify CSS
+        run: npx cssnano styles.css --output dist/styles.min.css
+      - name: Minify JS
+        run: npx uglifyjs script.js -c -m --output dist/script.min.js
+      - name: Copy static files
         run: |
-          # Use html-minifier, cssnano, uglify-js, etc.
-          npx html-minifier --input-dir . --output-dir dist
+          cp LICENSE dist/
+          cp README.md dist/
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
