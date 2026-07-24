@@ -18,7 +18,7 @@ jobs:
       - name: Minify HTML
         run: npx html-minifier index.html --output dist/index.html
       - name: Minify CSS
-        run: npx clean-css -o dist/styles.min.css styles.css
+        run: npx csso styles.css --output dist/styles.min.css
       - name: Minify JS
         run: npx uglify-js script.js -c -m --output dist/script.min.js
       - name: Copy static files
