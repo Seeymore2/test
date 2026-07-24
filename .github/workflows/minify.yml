@@ -12,17 +12,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Install minification tools
-        run: npm install -g html-minifier uglify-js clean-css
+          node-version: 20
       - name: Create dist directory
         run: mkdir -p dist
       - name: Minify HTML
-        run: html-minifier index.html --output dist/index.html
+        run: npx html-minifier index.html --output dist/index.html
       - name: Minify CSS
-        run: cleancss -o dist/styles.min.css styles.css
+        run: npx clean-css -o dist/styles.min.css styles.css
       - name: Minify JS
-        run: uglifyjs script.js -c -m --output dist/script.min.js
+        run: npx uglify-js script.js -c -m --output dist/script.min.js
       - name: Copy static files
         run: |
           cp LICENSE dist/
