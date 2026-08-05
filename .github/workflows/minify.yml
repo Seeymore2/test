@@ -22,9 +22,9 @@ jobs:
       - name: Minify HTML
         run: npx html-minifier index.html --output dist/index.html
       - name: Minify CSS
-        run: node -e "const fs=require('fs'),csso=require('csso');fs.writeFileSync('dist/styles.min.css',csso.minify(fs.readFileSync('styles.css','utf8')).css)"
+        run: node -e "const fs=require('fs'),csso=require('csso');fs.writeFileSync('dist/styles.css',csso.minify(fs.readFileSync('styles.css','utf8')).css)"
       - name: Minify JS
-        run: npx uglify-js script.js -c -m --output dist/script.min.js
+        run: npx uglify-js script.js -c -m --output dist/script.js
       - name: Copy static files
         run: |
           cp LICENSE dist/
